@@ -13,7 +13,14 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data
         {
             modelBuilder.Entity<User>(entity =>
             {
+
                 entity.HasKey(e => e.UsersId);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Users_Role");
             });
 
             modelBuilder.Entity<Product>(entity =>
