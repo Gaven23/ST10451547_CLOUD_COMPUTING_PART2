@@ -12,10 +12,9 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services
 
         }
 
-        public async Task<IEnumerable<User>> GetVehiclesAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-            return await _dataStore.GetUsersAsync(cancellationToken);
+            return await _dataStore.GetUsersAsync(cancellationToken);  
         }
-
     }
 }

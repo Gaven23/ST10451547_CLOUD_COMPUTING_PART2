@@ -1,113 +1,126 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
-using ST10451547_CLOUD_COMPUTING_PART2.Common;
-using ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore;
-using ST10451547_CLOUD_COMPUTING_PART2.Data;
 using ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services;
+using ST10451547_CLOUD_COMPUTING_PART2.Common;
+using ST10451547_CLOUD_COMPUTING_PART2.Data;
+using ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore;
 
-namespace ST10451547_CLOUD_COMPUTING_PART2;
-
-public static class Program
+namespace ST10451547_CLOUD_COMPUTING_PART2
 {
-    public static void Main(string[] args)
+    public class Program
     {
-        // use two-stage initialization for serilog
-        // configure first in a try/catch block to ensure any configuration issues are appropriately logged
-        // https://github.com/serilog/serilog-aspnetcore
-
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .CreateBootstrapLogger();
-
-        try
+        public static void Main(string[] args)
         {
-            Log.Information("Starting application");
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateBootstrapLogger();
 
-            var builder = WebApplication.CreateBuilder(args);
+            try
+            {
+                Log.Information("Starting application");
 
-            ConfigureServices(builder);
-
-            var app = builder.Build();
-
-            ConfigurePipeline(app);
-
-            app.Run();
+                var host = CreateHostBuilder(args).Build();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Application terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
-        catch (Exception ex)
-        {
-            Log.Fatal(ex, "Application terminated unexpectedly");
-        }
-        finally
-        {
-            Log.CloseAndFlush();
-        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 
-    private static void ConfigurePipeline(WebApplication app)
+    public class Startup
     {
-
-        if (!app.Environment.IsDevelopment())
+        public Startup(IConfiguration configuration)
         {
-            app.UseHsts();
+            Configuration = configuration;
         }
 
-        app.UseHttpsRedirection();
+        public IConfiguration Configuration { get; }
 
-        app.UseAuthorization();
-
-        app.MapControllers();
-
-
-    }
-
-    private static void ConfigureServices(WebApplicationBuilder builder)
-    {
- 
-
-        // Add services to the container.
-        builder.Services.AddControllersWithViews();
-
-        var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment())
+        public void ConfigureServices(IServiceCollection services)
         {
-            app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
+            // Add services to the container.
+            services.AddControllersWithViews();
+            services.Configure<AppSettings>(Configuration);
+            var appSettings = Configuration.Get<AppSettings>();
+            ConfigureData(services, appSettings?.ConnectionStrings?.CouldComputingConnection);
+            services.AddScoped<UserService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/user/index";
+                options.LogoutPath = "/User/SignOut";
+                //options.AccessDeniedPath = "User/AccessDenied";
+            });
+            services.AddSession();
+            services.AddCors();
+            services.AddHttpContextAccessor();
+            services.AddControllersWithViews();
+         
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
-        app.UseAuthorization();
-
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        app.Run();
-    }
-
-    private static void ConfigureData(IServiceCollection services, string? smartHubConnectionString)
-    {
-        if (smartHubConnectionString == null)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            throw new ArgumentNullException(nameof(smartHubConnectionString));
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthentication(); // Add this line to enable authentication middleware
+            app.UseAuthorization();
+
+            app.UseSession(); // Add this line to enable session middleware
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+
+        private void ConfigureData(IServiceCollection services, string? smartHubConnectionString)
         {
-            options.UseSqlServer(smartHubConnectionString);
-        });
+            if (smartHubConnectionString == null)
+            {
+                throw new ArgumentNullException(nameof(smartHubConnectionString));
+            }
 
-        services.AddScoped<IDataStore, DataStore>();
-    }
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(smartHubConnectionString);
+            });
 
-    private static void ConfigureServices(IServiceCollection services)
-    {
-        services.AddScoped<UserService>();
+            services.AddScoped<IDataStore, DataStore>();
+        }
     }
 }

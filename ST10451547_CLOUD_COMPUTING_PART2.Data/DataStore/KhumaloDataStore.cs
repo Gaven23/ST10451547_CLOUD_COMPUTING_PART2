@@ -1,4 +1,5 @@
-﻿using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
 
 namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
 {
@@ -9,9 +10,9 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+           return await _dbContext.User.AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public Task SaveProdutAsync(Product product)
