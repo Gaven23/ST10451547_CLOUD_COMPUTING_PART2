@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services;
 using ST10451547_CLOUD_COMPUTING_PART2.Common;
@@ -63,7 +58,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2
             var appSettings = Configuration.Get<AppSettings>();
             ConfigureData(services, appSettings?.ConnectionStrings?.CouldComputingConnection);
             services.AddScoped<UserService>();
-
+            services.AddScoped<ProductService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/user/index";
@@ -108,16 +103,16 @@ namespace ST10451547_CLOUD_COMPUTING_PART2
         }
 
 
-        private void ConfigureData(IServiceCollection services, string? smartHubConnectionString)
+        private void ConfigureData(IServiceCollection services, string? ConnectionString)
         {
-            if (smartHubConnectionString == null)
+            if (ConnectionString == null)
             {
-                throw new ArgumentNullException(nameof(smartHubConnectionString));
+                throw new ArgumentNullException(nameof(ConnectionString));
             }
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(smartHubConnectionString);
+                options.UseSqlServer(ConnectionString);
             });
 
             services.AddScoped<IDataStore, DataStore>();

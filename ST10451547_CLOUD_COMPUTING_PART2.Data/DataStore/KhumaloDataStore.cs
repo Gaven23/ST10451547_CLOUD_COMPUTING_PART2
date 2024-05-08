@@ -15,9 +15,17 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
            return await _dbContext.User.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public Task SaveProdutAsync(Product product)
+        public async Task SaveProdutAsync(Product product)
         {
-            throw new NotImplementedException();
+            var newProduct = new Product
+            {
+                Name = product.Name,
+                Supplier = product.Supplier,
+            };
+
+            _dbContext.Product.Add(newProduct);
+
+            await _dbContext.SaveChangesAsync();
         }
 
         public Task SaveRoleAsync(Role role)
