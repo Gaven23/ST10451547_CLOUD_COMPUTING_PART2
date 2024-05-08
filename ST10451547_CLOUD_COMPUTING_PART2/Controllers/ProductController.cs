@@ -13,11 +13,15 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             _productService = productService;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Post(Product product)
+        public IActionResult SaveProduct()
         {
-            if(ModelState.IsValid)
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveProduct([FromBody]  Product product)
+        {
+            if(ModelState.IsValid == true)
             {
                 if (product is null)
                     return BadRequest("A product must be present");
@@ -30,11 +34,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             return View(product);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+  
 
         public IActionResult Index()
         {
