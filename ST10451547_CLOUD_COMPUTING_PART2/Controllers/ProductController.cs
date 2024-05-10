@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services;
 using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
+using System.Threading;
 
 namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {
@@ -13,15 +14,15 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             _productService = productService;
         }
 
-        public IActionResult SaveProduct()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveProduct([FromBody]  Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            if(ModelState.IsValid == true)
+            if(ModelState.IsValid)
             {
                 if (product is null)
                     return BadRequest("A product must be present");
@@ -34,11 +35,12 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             return View(product);
         }
 
-  
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
+            var products = await _productService.GetProducts(cancellationToken);
+          
+            return View(products.ToList());
         }
+
     }
 }

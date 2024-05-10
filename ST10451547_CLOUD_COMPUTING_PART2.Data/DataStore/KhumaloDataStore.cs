@@ -5,9 +5,9 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
 {
     partial class DataStore
     {
-        public Task<IEnumerable<Product>> GetProdutAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Product>> GetProdutAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Product.AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)

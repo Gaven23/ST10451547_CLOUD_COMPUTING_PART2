@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-12 table-content" style="padding-top:35px">
+
+    <div class="row>">
+        <div class="card card-gray">
+            <div class="card-header">
+                <h1></h1>
+                <h1></h1>
+                <h1></h1>
+                <h1>Products</h1>
+                <div class="project-actions text-left">
+                    <a class="editor-create" asp-action="Create"><span class="fa fa-plus mr-3"></span><strong>ADD PRODUCT</strong></a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Supplier)
+                            </th>
+                            <th>@Html.DisplayName("Action")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Supplier)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#example1').DataTable();
+        });
+    </script>
+}

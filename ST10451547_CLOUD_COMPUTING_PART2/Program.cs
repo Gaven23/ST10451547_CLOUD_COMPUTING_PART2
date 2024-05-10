@@ -68,7 +68,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2
             services.AddSession();
             services.AddCors();
             services.AddHttpContextAccessor();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
          
         }
 

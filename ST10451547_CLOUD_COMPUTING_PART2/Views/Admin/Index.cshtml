@@ -5,37 +5,39 @@
 
 <style>
 
-#button1{
-    width: 450px;
-    height: 50px;
-    background-color: #c80000;
-}
-#button2{
-    width: 450px;
-    height: 50px;
-    background-color: #c80000;
-}
+    #button1 {
+        width: 450px;
+        height: 50px;
+        background-color: #c80000;
+    }
 
-#button3{
-    width: 450px;
-    height: 50px;
-    background-color: #c80000;
-}
+    #button2 {
+        width: 450px;
+        height: 50px;
+        background-color: #c80000;
+    }
 
-#container{
-    text-align: center;
-    margin-top:150px;
-}
+    #button3 {
+        width: 450px;
+        height: 50px;
+        background-color: #c80000;
+    }
+
+    #container {
+        text-align: center;
+        margin-top: 150px;
+    }
 
 </style>
 
 
 <div class="col-lg-12">
 
-<div id="container">
+    <div id="container">
 
-<a asp-controller="Admin" asp-action="Create" id="button1" class="btn btn-danger">Users</a><br><br>
-<a id="button2"  class="btn btn-danger"asp-controller="Admin" asp-action="mpp_logger">Orders</a><br><br>
-<a id="button2"  class="btn btn-danger"asp-controller="Admin" asp-action="enode">Line Items</a><br><br>
-</div>
+        <a asp-controller="Admin" asp-action="Create" id="button1" class="btn btn-danger">Users</a><br><br>
+        <a id="button2" class="btn btn-danger" asp-controller="Product" asp-action="Index">Product</a><br><br>
+        <a id="button2" class="btn btn-danger" asp-controller="Admin" asp-action="mpp_logger">Orders</a><br><br>
+        <a id="button2" class="btn btn-danger" asp-controller="Admin" asp-action="enode">Line Items</a><br><br>
+    </div>
 </div>

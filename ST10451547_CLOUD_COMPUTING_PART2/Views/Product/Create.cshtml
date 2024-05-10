@@ -1,0 +1,26 @@
+﻿@model ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.Product
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <div class="col-12" style="padding-top:45px; margin: 0 auto;">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="section-title flex">
+                <div class="flex">
+                    <p class="blu-title bold"></p>
+                </div>
+            </div>
+
+            <input class="edit-input-tag" type="text" asp-for="Name" placeholder="Name"><br><br>
+
+            <input class="edit-input-tag" type="text" asp-for="Supplier" placeholder="Supplier"><br><br>
+
+            <div class="form-group" style="padding-top:20px">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
