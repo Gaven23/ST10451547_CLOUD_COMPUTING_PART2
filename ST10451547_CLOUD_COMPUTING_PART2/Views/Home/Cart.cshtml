@@ -1,6 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Cart";
+﻿@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.LineItem>
+
+@{
+    ViewData["Title"] = "Index";
 }
+
 
 <div class="hero">
     <div class="container">
@@ -17,3 +20,58 @@
 </div>
 
 
+<div class="col-12 table-content" style="padding-top:35px">
+
+    <div class="row>">
+        <div class="card card-gray">
+            <div class="card-header">
+                <h1></h1>
+                <h1></h1>
+                <h1></h1>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductId)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#example1').DataTable();
+        });
+    </script>
+}

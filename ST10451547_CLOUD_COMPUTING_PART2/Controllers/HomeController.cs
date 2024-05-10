@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services;
+using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
 using ST10451547_CLOUD_COMPUTING_PART2.Models;
 using System.Diagnostics;
+using System.Threading;
 
 namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {
@@ -8,9 +11,13 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ProductService _productService;
+
+
+        public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
         public IActionResult Index()
@@ -33,10 +40,32 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             return View();
         }
 
-        public IActionResult Cart()
+
+        [HttpPost]
+        public async Task<IActionResult> CreatOrder(LineItem lineItem)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (lineItem is null)
+                    return BadRequest("A lineItem must be present");
+
+                await _productService.AddLineItem(lineItem);
+
+                return RedirectToAction(nameof(Cart));
+            }
+
+            return View(lineItem);
         }
+
+
+        public async Task<IActionResult> Cart(CancellationToken cancellationToken)
+        {
+            var products = await _productService.GetLineItemAsync(cancellationToken);
+
+            return View(products.ToList());
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

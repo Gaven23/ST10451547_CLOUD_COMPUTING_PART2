@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services;
 using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
-using System.Threading;
 
 namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {

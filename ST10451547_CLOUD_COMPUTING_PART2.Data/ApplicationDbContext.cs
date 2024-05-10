@@ -9,6 +9,8 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data
         internal DbSet<User> User { get; set; }
         internal DbSet<Product> Product { get; set; }
         internal DbSet<Role> Role { get; set; }
+        internal DbSet<LineItem> LineItem { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity =>
@@ -26,6 +28,12 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.ProductId);
+            });
+
+
+            modelBuilder.Entity<LineItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
             });
 
             modelBuilder.Entity<Role>(entity =>

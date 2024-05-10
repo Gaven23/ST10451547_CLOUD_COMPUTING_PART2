@@ -1,6 +1,12 @@
-﻿@{
-    ViewData["Title"] = "My Work";
+﻿@model ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.LineItem
+@{
+    ViewData["Title"] = "Create";
 }
+<style>
+    .hide-input {
+        display: none;
+    }
+</style>
 
 <div class="hero">
     <div class="container">
@@ -20,93 +26,119 @@
     </div>
 </div>
 
-<div class="product-section">
-    <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/images/African.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Custodiuos Masks</h3>
-                <strong class="product-price">R15000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-1">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Vases.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Luminous Vases</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Pots.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Fiery Pots</h3>
-                <strong class="product-price">R25000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
+<div class="col-12" style="padding-top:45px; margin: 0 auto;">
+    <form asp-action="CreatOrder">
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Plates.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Sun Dance Plates</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
+        <div class="product-section">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/images/African.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Custodiuos Masks</h3>
+                        <strong class="product-price">R15000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="150000" asp-for="Price" placeholder="Price"><br><br>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Dishes.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Kaleidoscope Dishes</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Image3.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Bringer of luck Side Bag</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-1">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Vases.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Luminous Vases</h3>
+                        <strong class="product-price">R5000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="5000" asp-for="Price" placeholder="Price"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Pots2.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Enchanted Pots</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Pots.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Fiery Pots</h3>
+                        <strong class="product-price">R25000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="25000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
 
-        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <a class="product-item" href="/Home/Cart/">
-                <img src="/Images/Bowls.jpg" class="img-fluid product-thumbnail">
-                <h3 class="product-title">Wooden Bowls</h3>
-                <strong class="product-price">R5000.00</strong>
-                <span class="icon-cross">
-                    <img src="/images/cross.svg" class="img-fluid">
-                </span>
-            </a>
-        </div>
-    </div>
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Plates.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Sun Dance Plates</h3>
+                        <strong class="product-price">R5000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="5000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Dishes.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Kaleidoscope Dishes</h3>
+                        <strong class="product-price">R5000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="150000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Image3.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Bringer of luck Side Bag</h3>
+                        <strong class="product-price">R2000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="2000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Pots2.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Enchanted Pots</h3>
+                        <strong class="product-price">R20000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="20000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                    <a class="product-item" href="/Home/Cart/">
+                        <img src="/Images/Bowls.jpg" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Wooden Bowls</h3>
+                        <strong class="product-price">R5000.00</strong>
+                        <input class="edit-input-tag hide-input" type="text" value="5000" asp-for="Price" placeholder="Supplier"><br><br>
+                        <span class="icon-cross">
+                            <img src="/images/cross.svg" class="img-fluid">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="form-group" style="padding-top:20px">
+            </div>
+    </form>
+</div>

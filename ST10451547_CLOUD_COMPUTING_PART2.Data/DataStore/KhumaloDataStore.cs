@@ -10,9 +10,14 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
             return await _dbContext.Product.AsNoTracking().ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<LineItem>> GetLineItemAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.LineItem.AsNoTracking().ToListAsync(cancellationToken);
+        }
+
         public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-           return await _dbContext.User.AsNoTracking().ToListAsync(cancellationToken);
+            return await _dbContext.User.AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public async Task SaveProdutAsync(Product product)
@@ -26,6 +31,22 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
             _dbContext.Product.Add(newProduct);
 
             await _dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task SaveLineItemAsync(LineItem lineItem)
+        {
+            var newlineItem1 = new LineItem
+            {
+                Price = lineItem.Price,
+                Quantity = lineItem.Quantity,
+                ProductId = lineItem.ProductId, 
+            };
+
+            _dbContext.LineItem.Add(newlineItem1);
+
+            await _dbContext.SaveChangesAsync();
+
         }
 
         public Task SaveRoleAsync(Role role)
