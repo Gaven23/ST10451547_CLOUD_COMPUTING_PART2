@@ -31,5 +31,4 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services
             return await _dataStore.GetProdutAsync(cancellationToken);
         }
     }
-
 }
