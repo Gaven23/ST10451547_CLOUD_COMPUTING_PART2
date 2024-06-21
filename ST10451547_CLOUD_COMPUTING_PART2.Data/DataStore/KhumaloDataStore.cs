@@ -49,6 +49,18 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
 
         }
 
+        public async Task SaveOrdersAsync(Order order)
+        {
+            var newOrder = new Order
+            {
+
+            };
+
+            _dbContext.Orders.Add(newOrder);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
         public Task SaveRoleAsync(Role role)
         {
             throw new NotImplementedException();

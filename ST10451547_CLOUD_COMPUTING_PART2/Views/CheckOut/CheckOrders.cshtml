@@ -1,5 +1,5 @@
 ﻿@using Newtonsoft.Json
-@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.LineItem>
+@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.Order>
 
 @{
 
@@ -10,11 +10,7 @@
 <div class="untree_co-section">
 	<div class="container">
 		<div class="row mb-5">
-			<div class="col-md-12">
-				<div class="border p-4 rounded" role="alert">
-					Returning customer? <a href="#">Click here</a> to login
-				</div>
-			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-md-6 mb-5 mb-md-0">
@@ -213,53 +209,23 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
+										<td>Custodiuos Masks <strong class="mx-2">x</strong>13</td>
 										<td>$250.00</td>
 									</tr>
 									<tr>
-										<td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
+										<td>Polo Shirt <strong class="mx-2">x</strong>12</td>
 										<td>$100.00</td>
 									</tr>
 									<tr>
 										<td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-										<td class="text-black">$350.00</td>
+										<td class="text-black">@Model.FirstOrDefault().TotalQuantity<</td>
 									</tr>
 									<tr>
 										<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-										<td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+										<td class="text-black font-weight-bold"><strong>@Model.FirstOrDefault().TotalPrice</strong></td>
 									</tr>
 								</tbody>
 							</table>
-
-							<div class="border p-3 mb-3">
-								<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-
-								<div class="collapse" id="collapsebank">
-									<div class="py-2">
-										<p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="border p-3 mb-3">
-								<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-								<div class="collapse" id="collapsecheque">
-									<div class="py-2">
-										<p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="border p-3 mb-5">
-								<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-
-								<div class="collapse" id="collapsepaypal">
-									<div class="py-2">
-										<p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-									</div>
-								</div>
-							</div>
 
 							<div class="form-group">
 								<button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='thankyou.html'">Place Order</button>
@@ -271,6 +237,5 @@
 
 			</div>
 		</div>
-		<!-- </form> -->
 	</div>
 </div>

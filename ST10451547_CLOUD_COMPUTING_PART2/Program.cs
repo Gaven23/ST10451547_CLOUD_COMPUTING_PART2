@@ -59,6 +59,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2
             ConfigureData(services, appSettings?.ConnectionStrings?.CouldComputingConnection);
             services.AddScoped<UserService>();
             services.AddScoped<ProductService>();
+            services.AddScoped<CheckOutService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/user/index";

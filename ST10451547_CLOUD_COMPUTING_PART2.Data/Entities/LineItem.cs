@@ -6,5 +6,6 @@
         public int? Quantity { get; set; } = 1;
         public int? Price { get; set; }
         public string ProductId { get; set; } = "2";
+
     }
 }
