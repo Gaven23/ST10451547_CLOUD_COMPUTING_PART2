@@ -45,22 +45,16 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 			}
 			catch (JsonException ex)
 			{
-				// Log the exception or handle it as needed
-				// Redirect to Index or an error view
 				return RedirectToAction(nameof(Index));
 			}
 		}
 
 		private List<LineItem> ProcessItems(List<LineItem> items)
 		{
-			// Example processing logic
-			// Modify items or perform operations as needed
 			foreach (var item in items)
 			{
 				// Example: Update properties, perform calculations, etc.
 			}
-
-			// Return processed items
 			return items;
 		}
 

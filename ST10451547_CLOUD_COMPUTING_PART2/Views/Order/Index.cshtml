@@ -39,7 +39,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.TotalQuantity)</td>
                                     <td>@Html.DisplayFor(modelItem => item.TotalPrice)</td>
                                     <td>
-                                        <!-- Add action links here -->
+                                        <a asp-action="Update" asp-route-id="@item.OrderID"><img class="table-icon" title="Ship and Validated Order Details" /></a>
                                     </td>
                                 </tr>
                             }

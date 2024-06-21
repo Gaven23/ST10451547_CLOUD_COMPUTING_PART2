@@ -1,0 +1,41 @@
+﻿@model ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<div class="col-12">
+    <form asp-action="Update">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="section-title flex">
+            <div class="flex">
+                <p class="blu-title bold"></p>
+
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <input type="hidden" asp-for="ProductId" />
+
+
+        <input class="edit-input-tag " type="text" asp-for="Name" placeholder="Longitude"><br>
+        <input class="edit-input-tag  " type="text" asp-for="Supplier" placeholder="Latitude"><br>
+        <div class="form-group" style="padding-top:20px">
+            <input type="submit" value="Save" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

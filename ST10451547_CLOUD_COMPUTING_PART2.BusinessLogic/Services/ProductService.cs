@@ -17,6 +17,10 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services
             await _dataStore.SaveProdutAsync(product);
         }
 
+        public async Task UpdateProductAsync(Product product)
+        {
+            await _dataStore.UpdateProductAsync(product);
+        }
         public async Task AddLineItem(LineItem lineItem)
         {
             await _dataStore.SaveLineItemAsync(lineItem);
