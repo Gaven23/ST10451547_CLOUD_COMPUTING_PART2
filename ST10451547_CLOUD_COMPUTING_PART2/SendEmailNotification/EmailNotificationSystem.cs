@@ -74,7 +74,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.SendEmailNotification
 
 
 
-        public static bool SendTest(List<User> users)
+        public static bool SendToAllUsers(List<User> users)
         {
             // Initialize result flag
             bool success = true;
@@ -100,7 +100,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.SendEmailNotification
                             Subject = "Test email from PayMarker",
                             IsBodyHtml = true,
                             From = new MailAddress(smtp_from_email),
-                            Body = $"<b>Dear {user.Lastname},</b><br>Note that your product has been shipped."
+                            Body = $"<b>Dear {user.Lastname},</b><br>Note that your product has been updated."
                         };
 
                         // Add the user's email address

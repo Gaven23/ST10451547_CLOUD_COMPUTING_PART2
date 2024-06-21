@@ -82,7 +82,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 
                 var client = _userService.GetUsersAsync().Result.ToList();
                 
-                EmailNotificationSystem.SendTest(client);
+                EmailNotificationSystem.SendToAllUsers(client);
 
                 return RedirectToAction(nameof(Index));
             }
