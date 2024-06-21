@@ -4,10 +4,10 @@ using ST10451547_CLOUD_COMPUTING_PART2.Data.Entities;
 namespace ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services
 {
 
-    public class CheckOutService
+    public class OrderService
     {
         private readonly IDataStore _dataStore;
-        public CheckOutService(IDataStore dataStore)
+        public OrderService(IDataStore dataStore)
         {
             _dataStore = dataStore;
 

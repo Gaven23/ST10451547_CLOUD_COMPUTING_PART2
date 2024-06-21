@@ -8,14 +8,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {
 	public class CheckOutController : Controller
 	{
-		private readonly CheckOutService _checkOutService;
-
-		public CheckOutController(CheckOutService checkOutService)
-		{
-			_checkOutService = checkOutService;
-		}
-
-		// GET: /CheckOut/CheckOrders?itemsJson=[json-encoded-items]
+	
 		public IActionResult CheckOrders(string itemsJson)
 		{
 			if (string.IsNullOrEmpty(itemsJson))
