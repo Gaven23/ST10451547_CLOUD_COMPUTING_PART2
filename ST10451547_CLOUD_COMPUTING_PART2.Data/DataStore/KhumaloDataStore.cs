@@ -15,6 +15,13 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
             return await _dbContext.LineItem.AsNoTracking().ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken cancellationToken = default)
+        {
+            var orders =  await _dbContext.Order.AsNoTracking().ToListAsync(cancellationToken);
+
+            return orders;  
+        }
+
         public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.User.AsNoTracking().ToListAsync(cancellationToken);
@@ -40,7 +47,7 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
             {
                 Price = lineItem.Price,
                 Quantity = lineItem.Quantity,
-                ProductId = lineItem.ProductId, 
+                ProductId = lineItem.ProductId,
             };
 
             _dbContext.LineItem.Add(newlineItem1);
@@ -51,15 +58,47 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
 
         public async Task SaveOrdersAsync(Order order)
         {
-            var newOrder = new Order
+            // Generate a user-friendly order code
+            var datePart = DateTime.UtcNow.ToString("yyyyMMdd");
+            var randomPart = GenerateRandomString(6);
+
+            try
             {
+                // Create a new order instance
+                var newOrder = new Order
+                {
+                    //UserFriendlyOrderCode = $"{datePart}-{randomPart}",
+                    //TotalPrice = order.TotalPrice,
+                    //TotalQuantity = order.TotalQuantity,
+                    //FirstName = order.FirstName,
+                    //LastName = order.LastName,
+                    //CardNumber = order.CardNumber,
+                    //CVV = order.CVV,
+                    //// Add other necessary fields here
+                };
 
-            };
+                // Add the new order to the DbSet
+                _dbContext.Order.Add(newOrder);
 
-            _dbContext.Orders.Add(newOrder);
-
-            await _dbContext.SaveChangesAsync();
+                // Save changes asynchronously
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Handle database update specific exceptions
+                // Log exception details here if using a logging framework
+                throw new Exception("An error occurred while updating the database. Please try again.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                // Handle all other exceptions
+                // Log exception details here if using a logging framework
+                throw new Exception("An unexpected error occurred while saving the order.", ex);
+            }
         }
+
+     
+
 
         public Task SaveRoleAsync(Role role)
         {
@@ -75,5 +114,15 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data.DataStore
         {
             throw new NotImplementedException();
         }
+
+
+        private static string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
     }
 }

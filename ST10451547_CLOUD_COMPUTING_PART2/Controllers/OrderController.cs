@@ -7,27 +7,34 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {
     public class OrderController : Controller
     {
-		private readonly OrderService _checkOutService;
+		private readonly OrderService _orderService;
 
-		public OrderController(OrderService _orderService)
+		public OrderController(OrderService orderService)
 		{
-			_orderService = _orderService;
+			_orderService = orderService;
 		}
-		public IActionResult Index()
+
+
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
+            var products = await _orderService.GetOrdersAsync(cancellationToken);
+
+            return View(products.ToList());
         }
 
-		public IActionResult AddOrder(string itemsJson)
+        public async Task<IActionResult> AddOrder(Order itemsJson)
 		{
-			var items = JsonConvert.DeserializeObject<List<LineItem>>(itemsJson);
 
-			if (string.IsNullOrEmpty(itemsJson))
-			{
-				// Handle case where itemsJson is null or empty
-				return RedirectToAction(nameof(Index));
-			}
-			return View();
+			var tes = itemsJson;
+			// Process the items (optional step)
+		
+			return RedirectToAction(nameof(Index));
+		}
+
+		private List<Order> ProcessItems(List<Order> items)
+		{
+	
+			return items;
 		}
 	}
 }

@@ -1,5 +1,80 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.Order>
+
 @{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-12 table-content" style="padding-top:35px">
+    <div class="row">
+        <div class="card card-gray">
+            <div class="card-header">
+                <h1>Orders</h1>
+                <div class="project-actions text-left">
+                    <a class="editor-create" asp-action="Create"><span class="fa fa-plus mr-3"></span><strong>ADD PRODUCT</strong></a>
+              
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.OrderID)</th>
+                                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                                <th>@Html.DisplayNameFor(model => model.Address)</th>
+                                <th>@Html.DisplayNameFor(model => model.CardNumber)</th>
+                                <th>@Html.DisplayNameFor(model => model.TotalQuantity)</th>
+                                <th>@Html.DisplayNameFor(model => model.TotalPrice)</th>
+                                <th>@Html.DisplayName("Action")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.OrderID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CardNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TotalQuantity)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TotalPrice)</td>
+                                    <td>
+                                        <!-- Add action links here -->
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <!-- jQuery library -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- DataTables CSS (Bootstrap 4) -->
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- DataTables JS (includes jQuery DataTables) -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#example1').DataTable({
+                "paging": true, // Enable pagination
+                "searching": true, // Enable search
+                "info": true // Enable showing table information
+            });
+
+            // Event listener for custom search box
+            $('#searchInput').on('keyup', function () {
+                table.search(this.value).draw(); // Apply search on DataTable
+            });
+        });
+    </script>
 }

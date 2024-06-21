@@ -13,9 +13,14 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.BusinessLogic.Services
 
         }
 
-        public async Task AddProductAsync(Order order)
+        public async Task AddOrdersAsync(Order orders)
         {
-            await _dataStore.SaveOrdersAsync(order);
+            await _dataStore.SaveOrdersAsync(orders);
         }
+        public async Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken cancellationToken)
+        {
+            return await _dataStore.GetOrdersAsync(cancellationToken);
+        }
+
     }
 }

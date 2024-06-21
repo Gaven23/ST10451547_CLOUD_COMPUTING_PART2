@@ -11,7 +11,8 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Data
         Task SaveLineItemAsync(LineItem lineItem);
         Task<IEnumerable<Product>> GetProdutAsync(CancellationToken cancellationToken = default);
         Task<IEnumerable<LineItem>> GetLineItemAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken cancellationToken = default);
         Task SaveRoleAsync(Role role);
-        Task SaveOrdersAsync(Order role);
+        Task SaveOrdersAsync(Order orders);
     }
 }

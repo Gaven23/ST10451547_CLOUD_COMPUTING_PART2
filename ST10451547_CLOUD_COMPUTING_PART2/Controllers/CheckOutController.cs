@@ -8,7 +8,12 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 {
 	public class CheckOutController : Controller
 	{
-	
+		private readonly OrderService _orderService;
+
+		public CheckOutController(OrderService orderService)
+		{
+			_orderService = orderService;
+		}
 		public IActionResult CheckOrders(string itemsJson)
 		{
 			if (string.IsNullOrEmpty(itemsJson))
@@ -29,14 +34,10 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 
 				int totalQuantity = (int)processedItems.Sum(item => item.Quantity);
 
-				var finalData = new List<Order>()
+				var finalData = new Order()
 				{
-					new Order()
-					{
-						TotalPrice = totalPrice,
-						TotalQuantity = totalQuantity,
-							
-					}
+					TotalPrice = totalPrice,
+					TotalQuantity = totalQuantity,
 				};
 
 				// Return the processed items view
@@ -63,7 +64,15 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
 			return items;
 		}
 
-		public IActionResult Index(List<LineItem> items)
+        public async Task<IActionResult> AddOrder(Order itemsJson)
+        {
+
+			_orderService.AddOrdersAsync(itemsJson);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Index(List<LineItem> items)
 		{
 			// Optionally, further process items or display them in the view
 			return View(items);
