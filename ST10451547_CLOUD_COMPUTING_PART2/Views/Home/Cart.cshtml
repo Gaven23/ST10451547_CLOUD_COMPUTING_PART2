@@ -1,9 +1,9 @@
-﻿@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.LineItem>
+﻿@using Newtonsoft.Json
+@model IEnumerable<ST10451547_CLOUD_COMPUTING_PART2.Data.Entities.LineItem>
 
 @{
     ViewData["Title"] = "Index";
 }
-
 
 <div class="hero">
     <div class="container">
@@ -19,63 +19,64 @@
     </div>
 </div>
 
-
 <div class="col-12 table-content" style="padding-top:35px">
-
-    <div class="row>">
+    <div class="row">
         <div class="card card-gray">
             <div class="card-header">
                 <h1></h1>
                 <h1></h1>
                 <h1></h1>
-
             </div>
         </div>
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Price)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Quantity)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProductId)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <!-- Form to post data to the Checkout action -->
+            <  <form asp-controller="CheckOut" asp-action="Index" method="post">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Quantity)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ProductId)
-                            </td>
+                            <th>@Html.DisplayNameFor(model => model.First().Price)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Quantity)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().ProductId)</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <a class="btn btn-black btn-lg py-3 btn-block" asp-controller="Checkout" asp-action="Index">Proceed To Checkout</a>
-        </div>
-    </div>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(m => item.Id)
+                                    @Html.HiddenFor(m => item.Price)
+                                    @Html.DisplayFor(m => item.Price)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(m => item.Quantity)
+                                    @Html.DisplayFor(m => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(m => item.ProductId)
+                                    @Html.DisplayFor(m => item.ProductId)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
+
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div class="button-container">
+                        <a class="btn btn-primary ml-auto" target="_blank" href="@Url.Action("CheckOrders", "Checkout", new { itemsJson = JsonConvert.SerializeObject(Model) })">
+                            Proceed To Checkout
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
-</div>
+
 @section Scripts {
     <script type="text/javascript">
-
         $(document).ready(function () {
             $('#example1').DataTable();
         });

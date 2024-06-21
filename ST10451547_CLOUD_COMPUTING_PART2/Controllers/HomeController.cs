@@ -65,6 +65,19 @@ namespace ST10451547_CLOUD_COMPUTING_PART2.Controllers
             return View(products.ToList());
         }
 
+        [HttpPost]
+        public IActionResult UpdateCart(IEnumerable<LineItem> items)
+        {
+            // Process the line items
+            foreach (var item in items)
+            {
+                // Process each item
+            }
+
+            // Redirect to a different action or return a view
+            return RedirectToAction("Checkout");
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
